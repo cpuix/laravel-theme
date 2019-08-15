@@ -41,7 +41,10 @@ php artisan vendor:publish --tag=theme
 You can change the options of your app from `config/theme.php` file
 
 ## Usage
-
+Just run the artisan command to create a new theme.
+```bash
+php artisan theme:generate
+```
 ### Facade
 ```php
 <link rel="stylesheet" href="{{ Theme::asset('app.css') }}">
