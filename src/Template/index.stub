@@ -1,0 +1,9 @@
+@extends('{{layoutName}}')
+
+@section('title','Page Name')
+
+@section('content')
+
+<div>Content</div>
+@endsection
+

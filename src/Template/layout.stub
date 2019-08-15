@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+<meta charset="utf-8">
+<meta name="csrf-token" content="{{ csrf_token() }}">
+<title>@yield('title','Template Name')</title>
+<meta property="og:title" content="">
+<meta property="og:site_name" content="">
+<meta property="og:description" content="">
+<meta property="og:type" content="website">
+<meta property="og:url" content="">
+<meta property="og:image" content="">
+<link rel="shortcut icon" href="">
+<link rel="icon" type="image/png" sizes="192x192" href="">
+<link rel="apple-touch-icon" sizes="180x180" href="">
+<link rel="stylesheet" href="{{ Theme::asset('css/styles.css', null, true) }}"/>
+
+</head>
+<body>
+
+    @include('{{header}}')
+
+	@yield('content')
+
+	@include('{{footer}}')
+
+</body>
+</html>
