@@ -16,7 +16,7 @@ This package creates multiple managed theme infrastructure for Laravel.
 Run the install command:
 
 ```bash
-composer require bkeremm/laravel-theme dev-master
+composer require bkeremm/laravel-theme
 ```
 
 ### 2. Register (for Laravel < 5.5)
