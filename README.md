@@ -42,9 +42,15 @@ You can change the options of your app from `config/theme.php` file
 
 ## Usage
 
+### Facade
 ```php
-Theme::asset('app.css'); 
-Theme::asset('app.js'); 
+<link rel="stylesheet" href="{{ Theme::asset('app.css') }}">
+<script type="javascript" src="{{ Theme::asset('app.js') }}"> 
+```
+or you can create your css and js files automatically by using assetLink helper.
+```php
+Theme::assetLink('app.css'); // Output: <link rel="stylesheet" href="/themes/default/css/app.css">
+Theme::assetLink('app.js'); 
 ```
 
 ### What's next?
