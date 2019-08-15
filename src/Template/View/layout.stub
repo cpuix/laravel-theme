@@ -13,7 +13,7 @@
 <link rel="shortcut icon" href="">
 <link rel="icon" type="image/png" sizes="192x192" href="">
 <link rel="apple-touch-icon" sizes="180x180" href="">
-{{ Theme::assetLink('css',''css/app.css', false) }}
+{{ Theme::assetLink('css','css/app.css', false) }}
 
 </head>
 <body>

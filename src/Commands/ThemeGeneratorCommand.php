@@ -57,6 +57,10 @@ class ThemeGeneratorCommand extends Command {
                 $this->assets($name);
             }
 
+            if ($this->confirm('Create a webpack helper kit?',true)) {
+                $this->webpack($name);
+            }
+
             $this->info("Theme Generator Successful. Now add your default theme from the config/theme settings.");
             return;
         }
@@ -81,7 +85,7 @@ class ThemeGeneratorCommand extends Command {
                 $this->config['views_folder']['component'].'.'.$this->config['views_blade']['header'],
                 $this->config['views_folder']['component'].'.'.$this->config['views_blade']['footer']
             ],
-            $this->getStub('layout')
+            $this->getStub('View','layout')
         );
 
         $indexTemplate = str_replace(
@@ -91,7 +95,7 @@ class ThemeGeneratorCommand extends Command {
             [
                 $this->config['views_folder']['layout'].'.'.$this->config['views_blade']['layout'],
             ],
-            $this->getStub('index')
+            $this->getStub('View','index')
         );
 
         $this->setFile('resources',$themeName.'/views/'.$this->config['views_folder']['layout'],$this->config['views_blade']['layout'].'.blade.php',$layoutTemplate);
@@ -127,9 +131,35 @@ class ThemeGeneratorCommand extends Command {
 
     }
 
-    protected function getStub($fileName)
+    protected function webpack($name)
     {
-        return File::get(__DIR__.'/../Template/'.$fileName.'.stub');
+        $this->setFolder('resources',$name.'/assets');
+        $this->setFolder('resources',$name.'/assets/'.$this->config['webpack']['folder']['js']);
+        $this->setFolder('resources',$name.'/assets/'.$this->config['webpack']['folder']['css']);
+
+        // Include Js Files
+        $this->setFile('resources',$name.'/assets/'.$this->config['webpack']['folder']['js'],$this->config['webpack']['file']['js'],$this->getStub('Webpack','js'));
+        $this->setFile('resources',$name.'/assets/'.$this->config['webpack']['folder']['js'],$this->config['webpack']['file']['bootstrap'],$this->getStub('Webpack','bootstrap'));
+
+        // Include Css Files
+        $this->setFile('resources',$name.'/assets/'.$this->config['webpack']['folder']['css'],$this->config['webpack']['file']['css'],$this->getStub('Webpack','css'));
+        $this->setFile('resources',$name.'/assets/'.$this->config['webpack']['folder']['css'],$this->config['webpack']['file']['variable'],$this->getStub('Webpack','variable'));
+
+        // webpack.mix.js Added
+        $include_js = 'resources/'.$this->config['resource_path'].'/'.$name.'/assets/'.$this->config['webpack']['folder']['js'].'/'.$this->config['webpack']['file']['js'];
+        $export_js = 'public/'.$this->config['public_path'].'/'.$name.'/js';
+
+        $include_css = 'resources/'.$this->config['resource_path'].'/'.$name.'/assets/'.$this->config['webpack']['folder']['css'].'/'.$this->config['webpack']['file']['css'];
+        $export_css = 'public/'.$this->config['public_path'].'/'.$name.'/css';
+
+        File::append(base_path('webpack.mix.js'), "\n" . implode("\n", ["mix.js('".$include_js."', '".$export_js."').sass('".$include_css."', '".$export_css."').version();"]));
+
+
+    }
+
+    protected function getStub($folder,$fileName)
+    {
+        return File::get(__DIR__.'/../Template/'.$folder.'/'.$fileName.'.stub');
     }
 
     protected function getDirectory($folder,$path = NULL)
@@ -138,18 +168,18 @@ class ThemeGeneratorCommand extends Command {
         {
             if ($path === NULL)
             {
-                return resource_path($this->config['theme_path']);
+                return resource_path($this->config['resource_path']);
             }
-            return resource_path($this->config['theme_path'].'/'.$path);
+            return resource_path($this->config['resource_path'].'/'.$path);
         }
 
         if ($folder === 'public')
         {
             if ($path === NULL)
             {
-                return public_path($this->config['asset_path']);
+                return public_path($this->config['public_path']);
             }
-            return public_path($this->config['asset_path'].'/'.$path);
+            return public_path($this->config['public_path'].'/'.$path);
         }
 
     }
@@ -172,17 +202,17 @@ class ThemeGeneratorCommand extends Command {
         {
             if ($path == null)
             {
-                return File::makeDirectory(resource_path($this->config['theme_path']));
+                return File::makeDirectory(resource_path($this->config['resource_path']));
             }
-            return File::makeDirectory(resource_path($this->config['theme_path']).'/'.$path);
+            return File::makeDirectory(resource_path($this->config['resource_path']).'/'.$path);
         }
         if ($directory === 'public')
         {
             if ($path == null)
             {
-                return File::makeDirectory(public_path($this->config['theme_path']));
+                return File::makeDirectory(public_path($this->config['resource_path']));
             }
-            return File::makeDirectory(public_path($this->config['theme_path']).'/'.$path);
+            return File::makeDirectory(public_path($this->config['resource_path']).'/'.$path);
         }
     }
 }

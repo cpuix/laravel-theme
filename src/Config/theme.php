@@ -18,7 +18,22 @@ return [
         'index'     => 'index',
         'header'    => 'header',
         'footer'    => 'footer',
-        'layout'    => 'main'
+        'layout'    => 'main',
+    ],
+    /*
+     * Laravel Default Js & Sass Folder & File Name
+     */
+    'webpack' => [
+        'folder' => [
+            'js'    => 'js',
+            'css'   => 'sass',
+        ],
+        'file' => [
+            'css'           => 'app.scss',
+            'variable'      => '_variables.scss',
+            'js'            => 'app.js',
+            'bootstrap'     => 'bootstrap.js',
+        ]
     ],
 
     /*
@@ -28,9 +43,7 @@ return [
      |
      |
      */
-
-    'theme_path'    => 'themes',
-
-    'asset_path'   => 'themes',
+    'resource_path'     => 'themes',
+    'public_path'       => 'themes',
 
 ];
