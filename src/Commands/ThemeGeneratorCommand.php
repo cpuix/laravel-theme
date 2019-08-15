@@ -43,12 +43,19 @@ class ThemeGeneratorCommand extends Command {
         {
             File::makeDirectory($this->getDirectory('resources'));
         }
+        if (!File::exists($this->getDirectory('public')))
+        {
+            // Default Asset Theme Folder Create
+            $this->setFolder('public');
+        }
 
         if (!File::exists($this->getDirectory('resources',$name)))
         {
-            // Themes altına klasör oluştur.
             File::makeDirectory($this->getDirectory('resources',$name));
             File::makeDirectory($this->getDirectory('resources',$name.'/views'));
+
+            $this->setFolder('public',$name);
+
 
             if ($this->confirm('Create a default theme folder structure?',true)) {
                 $this->template($name);
@@ -109,25 +116,13 @@ class ThemeGeneratorCommand extends Command {
     protected function assets($themeName)
     {
 
-        if (!File::exists($this->getDirectory('public')))
-        {
-            // Default Asset Theme Folder Create
-            $this->setFolder('public');
-        }
+        $this->setFolder('public',$themeName.'/css');
+        $this->setFolder('public',$themeName.'/js');
 
-        if (!File::exists($this->getDirectory('public',$themeName)))
-        {
-            $this->setFolder('public',$themeName);
-            $this->setFolder('public',$themeName.'/css');
-            $this->setFolder('public',$themeName.'/js');
+        $this->setFile('public',$themeName.'/css','app.css');
+        $this->setFile('public',$themeName.'/js','app.js');
 
-            $this->setFile('public',$themeName.'/css','app.css');
-            $this->setFile('public',$themeName.'/js','app.js');
-
-            $this->info("Theme asset files created!");
-
-            return;
-        }
+        $this->info("Theme asset files created!");
 
     }
 

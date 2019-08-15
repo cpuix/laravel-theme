@@ -1,6 +1,11 @@
 ![Laravel Theme](http://kerembahcivan.com/opensource/laravel-theme.jpg)
 
+
 # Laravel Template Builder
+[![Latest Stable Version](https://poser.pugx.org/bkeremm/laravel-theme/v/stable)](https://packagist.org/packages/bkeremm/laravel-theme)
+[![Total Downloads](https://poser.pugx.org/bkeremm/laravel-theme/downloads)](https://packagist.org/packages/bkeremm/laravel-theme)
+[![License](https://poser.pugx.org/bkeremm/laravel-theme/license)](https://packagist.org/packages/bkeremm/laravel-theme)
+
 This package creates multiple managed theme infrastructure for Laravel.
 
 
@@ -55,10 +60,51 @@ or you can create your css and js files automatically by using assetLink helper.
 Theme::assetLink('app.css'); // Output: <link rel="stylesheet" href="/themes/default/css/app.css">
 Theme::assetLink('app.js'); 
 ```
+### Configure
+`config/theme.php` contains the following settings.
+
+If you want to change the default created file and folder names with Artisan command, you can do this easily in `config/theme.php`.
+```php
+    'current_theme' => 'default',
+
+    'views_folder' => [
+        'layout'    => 'layouts',
+        'component' => 'components',
+    ],
+
+    'views_blade' => [
+        'index'     => 'index',
+        'header'    => 'header',
+        'footer'    => 'footer',
+        'layout'    => 'main',
+    ],
+ 
+    'webpack' => [
+        'folder' => [
+            'js'    => 'js',
+            'css'   => 'sass',
+        ],
+        'file' => [
+            'css'           => 'app.scss',
+            'variable'      => '_variables.scss',
+            'js'            => 'app.js',
+            'bootstrap'     => 'bootstrap.js',
+        ]
+    ],
+
+    'resource_path'     => 'themes',
+    'public_path'       => 'themes',
+```
+
+If you want to activate a new theme on the front side, just type the theme name in the current_theme field.
+
+```php
+'current_theme' => 'theme_name', 
+```
 
 ### What's next?
+- [X] Webpack Build
 - [ ] Advanced View Files
-- [ ] Webpack Build
 
 ### Changelog
 
