@@ -25,7 +25,7 @@ class ServiceProvider extends \Illuminate\Support\ServiceProvider {
             return new Theme();
         });
 
-        View::addLocation(resource_path(config('theme.theme_path').'/'.config('theme.current_theme').'/views'));
+        View::addLocation(resource_path(config('theme.resource_path').'/'.config('theme.current_theme').'/views'));
 
     }
 }
