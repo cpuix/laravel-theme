@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to `laravel-theme` will be documented in this file.
 
+## 1.0.4 - 2019-08-17
+- Fixed issue with `assetLink` path.
+
 ## 1.0.3 - 2019-08-16
 - Fixed ServiceProvider location bug.
 

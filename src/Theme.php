@@ -16,16 +16,16 @@ class Theme {
         if($style == "css")
         {
             if ($secure == true) {
-                return '<link rel="stylesheet" type="text/css" href="'.secure_asset(config('theme.assets_path').'/'.config('theme.current_theme').'/'.$param).'"/>';
+                return '<link rel="stylesheet" type="text/css" href="'.secure_asset(config('theme.public_path').'/'.config('theme.current_theme').'/'.$param).'"/>';
             }
-            return '<link rel="stylesheet" type="text/css" href="'.asset(config('theme.assets_path').'/'.config('theme.current_theme').'/'.$param).'"/>';
+            return '<link rel="stylesheet" type="text/css" href="'.asset(config('theme.public_path').'/'.config('theme.current_theme').'/'.$param).'"/>';
         }
         if($style == "js")
         {
             if ($secure == true) {
-                return '<script src="'.secure_asset(config('theme.assets_path').'/'.config('theme.current_theme').'/'.$param).'"></script>';
+                return '<script src="'.secure_asset(config('theme.public_path').'/'.config('theme.current_theme').'/'.$param).'"></script>';
             }
-            return '<script src="'.asset(config('theme.assets_path').'/'.config('theme.current_theme').'/'.$param).'"></script>';
+            return '<script src="'.asset(config('theme.public_path').'/'.config('theme.current_theme').'/'.$param).'"></script>';
         }
     }
 
