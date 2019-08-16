@@ -1,6 +1,9 @@
 # Changelog
 All notable changes to `laravel-theme` will be documented in this file.
 
+## 1.0.3 - 2019-08-16
+- Fixed ServiceProvider location bug.
+
 ## 1.0.2 - 2019-08-16
 - Webpack Builder Kit Added
 - Added new settings to `config/theme.php` 
